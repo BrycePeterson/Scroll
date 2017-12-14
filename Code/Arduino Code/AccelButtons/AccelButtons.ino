@@ -1,0 +1,59 @@
+#include <Servo.h>
+
+#include "CurieIMU.h"
+
+float ax, ay, az;   //scaled accelerometer values
+long t = 0;
+#define PWM 3
+#define LEFT 4
+#define RIGHT 5
+Servo servo;
+char state = 1;
+void setup() {
+
+//SERIAL MONITOR
+  Serial.begin(9600);
+  while(!Serial);
+
+  servo.attach(3);
+  pinMode(LEFT, INPUT_PULLUP);
+  pinMode(RIGHT, INPUT_PULLUP);
+  
+  CurieIMU.begin();
+//  CurieIMU.setAccelerometerRange(4);  //4 G's
+//  CurieIMU.setAccelerometerRate(100);  //100 Hz
+ // CurieIMU.setGyroRange(250);
+  
+}
+
+void loop() {
+  if(digitalRead(LEFT)==LOW){ //Left Button Pressed?
+    ///Serial.println("Left");
+    servo.write(255);
+    t=millis();
+  }
+  if(digitalRead(RIGHT) == LOW){ //Right Button Pressed?
+    //Serial.println("Right");
+    servo.write(0);
+    t=millis();
+  }
+  if(millis()-t > 2000){
+    servo.write(90);
+  }
+  
+  runAccelerometer();
+}
+
+void runAccelerometer(){
+  CurieIMU.readAccelerometerScaled(ax, ay, az);
+  ax = (int)(ax * 100.0);
+  ay = (int)(ay * 100.0);
+  az = (int)(az * 100.0);
+  Serial.print(az);
+  Serial.print(",");
+  Serial.print(ay);
+  Serial.print(",");
+  Serial.println(az);
+  delay(10);
+}
+
