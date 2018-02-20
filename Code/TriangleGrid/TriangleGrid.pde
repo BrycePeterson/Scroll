@@ -1,14 +1,20 @@
 OPC opc;
-GradientBounce gBounce = new GradientBounce();
+GradientBounce gBounce;
+Signal signal;
 
 //Number of Rows and Columns (Should be Even for Mapping to work well)
 int nRow = 6;  
 int nCol = 6;
 
+//State of Animation
+int state = 0; //default blank.
+
 void setup() {
-  size(1500, 1500);
+  size(500, 500);
   
   opc = new OPC(this, "127.0.0.1", 7890);
+  gBounce = new GradientBounce();
+  signal= new Signal();
   
   mapLEDBroken();  // Map out LED's on Backpack Geometry to Screen
   boxTest();  //Wipes and Light's Individual Pixels
@@ -22,9 +28,19 @@ void setup() {
 }
 
 void draw() {
-  gBounce.step();
-  //pixelTest();
-  //boxTest();
+  switch (state) {
+    case 0: background(0);
+            break;
+    case 1: gBounce.step(); 
+            break;
+    case 2: signal.rightTurn();
+            break;
+    case 3: signal.leftTurn();
+            break;
+    default: background(0);
+             print("Invalid");
+              
+  }
 }
 
 void mapLED() {
@@ -101,19 +117,16 @@ void boxTest(){
   delay(100);
 } 
 
-/*
-void left(){
-  background(0);
-  image(leftArrow,0,0,width,height);
+void keyPressed() {
+  println(key);
+  switch (key) {
+    case '1': state = 1;  // Gradient Flow
+            break;
+    case '2': state = 2;  // Right Signal
+            break;
+    case '3': state = 3;  // Left Signal
+            break;
+    default: state = 0; // Blank
+            break;
+  }
 }
-
-void right(){
-  background(0);
-  image(rightArrow,0,0,width,height);
-}
-
-void leftRight(){
-  background(0);
-  image(bothArrow,0,0,width,height);
-}
-*/

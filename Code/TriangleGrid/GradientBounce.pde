@@ -8,32 +8,14 @@ class GradientBounce {
   private int[] gGrow = {7,10,5};
   private color[] gColor = {color(255,170,0,100),color(0,255,255,100),color(200,0,255,100)};
 
-/*
-  private int posX = new int[3];
-  private int posY = new int[3];
-  private int plusX = new int[3];
-  private int plusY = new int[3];
-  private int gSize = new int[3];
-  private int gGrow = new int[3];
-  private color gColor = new color[3];
-  
-  GradientBounce() {
-    posX = {width/3, width*2/3, width/2};
-    posY = {height*2/3, height*2/3, height/3};
-    plusX = {5,-7,-3};
-    plusY = {-5,-10,7};
-    gSize = {100,200,100};
-    gGrow = {7,10,5};
-    gColor = {color(255,170,0,100),color(0,255,255,100),color(200,0,255,100)};
 
-  }
-*/
   
   GradientBounce() {
     //Empty Constructor
   }
   
   void step() {
+    println("Bounce");
     background(0);
     noStroke();
     for(int i=0;i<3;i++){
