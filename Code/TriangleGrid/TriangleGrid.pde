@@ -8,7 +8,7 @@ PImage bothArrow;    //Both?
   
 import processing.serial.*; // add the serial library
 Serial myPort; // the serial port to monitor
-boolean isSerial = true;
+boolean isSerial = false;
 
 // Backpack Geometry
 
@@ -65,10 +65,10 @@ void setup() {
 
 void draw()
 {
-  //gradientFlow();
+  gradientFlow();
   //paint();
   //dotGame();
-  turnSignals();
+  //turnSignals();
   //pixelTest();
   //boxTest();  
   //twistedLines();
@@ -322,4 +322,3 @@ void leftRight(){
 
   
   
-
